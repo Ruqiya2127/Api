@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .views import Books
+from .views import Books, Genre, Comment
 
 class BooksSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,15 @@ class BooksSerializer(serializers.ModelSerializer):
 #         model = Books
 #         fields = '__all__'
 
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = '__all__'
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
 # class BooksSerializers(serializers.Serializer):
 #     id = serializers.BigIntegerField(read_only = True)

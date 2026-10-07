@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Genre(models.Model):
     title = models.CharField(max_length=250, unique=True)
@@ -18,3 +19,12 @@ class Books(models.Model):
 
     def __str__(self):
         return self.name
+
+class Comment(models.Model):
+    text = models.CharField(max_length=500)
+    created = models.DateTimeField(auto_now_add=True)
+    book = models.ForeignKey(Books, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.text
