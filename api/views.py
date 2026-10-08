@@ -120,3 +120,6 @@ class GenreAPIView(APIView):
 class CommentAPIView(APIView):
     queryset =  Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes =[permissions.DjangoModelPermissions, IsAdminOrReadOnly]
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
