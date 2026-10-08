@@ -11,9 +11,12 @@ from .models import Genre, Books, Comment
 from .serializers import BooksSerializer, GenreSerializer, CommentSerializer
 from .permissions import IsAdminOrReadOnly
 
+from rest_framework.viewsets import ModelViewSet
 
 
-
+class BookViewSet(ModelViewSet):
+    queryset = Books.objects.all()
+    serializer_class = BooksSerializer
 
 
 # class BookListAPIView(GenericAPIView,
@@ -45,31 +48,31 @@ from .permissions import IsAdminOrReadOnly
 #         return self.destroy(request, *args, **kwargs)
 
     
-class BooksListAPIView(ListCreateAPIView):
-    queryset =  Books.objects.all()
-    serializer_class = BooksSerializer
-    permission_classes =[IsAdminOrReadOnly]
+# class BooksListAPIView(ListCreateAPIView):
+#     queryset =  Books.objects.all()
+#     serializer_class = BooksSerializer
+#     permission_classes =[IsAdminOrReadOnly]
 
-    def get_queryset(self):
-        genre_id = self.kwargs.get("genre_id")
-        if genre_id:
-            books = Books.objects.filter(genre_id = genre_id)
-        else:
-            books = Books.objects.all()
-        return books
-    def get_serializer_class(self):
-        # if self.request.user.is_staff:
-        #     return BooksSerializerForAdmin
-        return BooksSerializer
+#     def get_queryset(self):
+#         genre_id = self.kwargs.get("genre_id")
+#         if genre_id:
+#             books = Books.objects.filter(genre_id = genre_id)
+#         else:
+#             books = Books.objects.all()
+#         return books
+#     def get_serializer_class(self):
+#         # if self.request.user.is_staff:
+#         #     return BooksSerializerForAdmin
+#         return BooksSerializer
 
 
 
     
-class BooksRetrieveAPIView(RetrieveUpdateDestroyAPIView):
-    queryset =  Books.objects.all()
-    serializer_class = BooksSerializer
-    lookup_url_kwarg = "book_id"
-    permission_classes =[IsAdminOrReadOnly]
+# class BooksRetrieveAPIView(RetrieveUpdateDestroyAPIView):
+#     queryset =  Books.objects.all()
+#     serializer_class = BooksSerializer
+#     lookup_url_kwarg = "book_id"
+#     permission_classes =[IsAdminOrReadOnly]
 
 # class BooksCreateAPIView(CreateAPIView):
 #     queryset =  Books.objects.all()
@@ -102,7 +105,7 @@ class BooksRetrieveAPIView(RetrieveUpdateDestroyAPIView):
 #         book =serializer.save()
 #         return Response(BooksSerializer(book).data, status=status.HTTP_201_CREATED)
     
-class GenreAPIView(APIView):
+class GenreAPIView(ModelViewSet):
     queryset =  Genre.objects.all()
     serializer_class = GenreSerializer
     # def get(self, request:Request):
@@ -117,7 +120,7 @@ class GenreAPIView(APIView):
     #             }
     #         )
     #     return Response(gernes_list)
-class CommentAPIView(APIView):
+class CommentAPIView(ModelViewSet):
     queryset =  Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes =[permissions.DjangoModelPermissions, IsAdminOrReadOnly]
