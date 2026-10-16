@@ -15,7 +15,7 @@ class Books(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     published = models.BooleanField(default=True)
-    genge = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    genge = models.ManyToManyField(Genre)
 
     def __str__(self):
         return self.name
