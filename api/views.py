@@ -4,6 +4,7 @@ from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Genre, Books, Comment
 from .serializers import BooksSerializer, GenreSerializer, CommentSerializer
+from rest_framework import permissions
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -11,8 +12,9 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 
 class BookViewSet(ModelViewSet):
     # queryset = Books.objects.all().prefetch_related('genre').only('id', 'name', 'price', 'genre')
-    queryset = Books.objects.all().prefetch_related('genre').defer('image', 'description')
+    queryset = Books.objects.all()
     serializer_class = BooksSerializer
+    permission_classes = [permissions.IsAuthenticated]
     filter_backends = [SearchFilter, OrderingFilter, DjangoFilterBackend]
     search_fields = ['name', 'price']
     ordering_fields = ['id', 'name', 'genre']
@@ -20,7 +22,7 @@ class BookViewSet(ModelViewSet):
         'genre__title' : ['exact'],
         'price' : ['exact', 'lt', 'lte', 'gt', 'gte']
     }
-    ordering='-id'
+  
 
     
 class GenreAPIView(ModelViewSet):
@@ -28,7 +30,7 @@ class GenreAPIView(ModelViewSet):
     serializer_class = GenreSerializer
     filter_backends = [OrderingFilter]
     ordering_fields = ['id']
-    ordering ='-id'
+   
 
 class CommentAPIView(ModelViewSet):
     queryset =  Comment.objects.all()

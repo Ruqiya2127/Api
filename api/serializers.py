@@ -6,15 +6,15 @@ class BooksSerializer(serializers.ModelSerializer):
     # course_name = serializers.CharField(source = 'genre.title', read_only = True)
     class Meta:
         model = Books
-        # fields = '__all__'
-        exclude = ['image', 'description']
+        fields = '__all__'
+        # exclude = ['image', 'description']
 
 
 class GenreSerializer(serializers.ModelSerializer):
     # book = BooksSerializer(many=True)
     class Meta:
         model = Genre
-        fields = ['id', 'title', 'books' ]
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):

@@ -2,9 +2,8 @@ from django.urls import path
 from rest_framework.routers import SimpleRouter, DefaultRouter
 from .views import BookViewSet, GenreAPIView, CommentAPIView
 
-router = SimpleRouter
-
-router.register('books', BookViewSet)
+router = SimpleRouter()
+router.register('books', BookViewSet, basename='book')
 router.register('genres', GenreAPIView)
 router.register('comments', CommentAPIView)
 
