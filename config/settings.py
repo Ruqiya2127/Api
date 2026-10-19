@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'api',
     'rest_framework.authtoken',
     'djoser',
-    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt',
     'django_filters',
     "debug_toolbar",
 ]
@@ -141,9 +141,9 @@ REST_FRAMEWORK = {
     ],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
     # 'PAGE_SIZE': 100
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # )
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 ...
