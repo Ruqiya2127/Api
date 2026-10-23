@@ -118,6 +118,6 @@ class  BookTestCase(APITestCase):
         self.assertEqual(response.status_code, 204)
         self.assertEqual(Books.objects.all().count(), 2)
 
-    
+  
    
 
